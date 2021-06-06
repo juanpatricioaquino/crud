@@ -1,28 +1,35 @@
 const crud = function () {
 
     let items = [
-        {id: 1, name: "John", lastname: "Doe"},
-        {id: 2, name: "Jane", lastname: "Doe"},
+        { id: 1, name: "John", lastname: "Doe" },
+        { id: 2, name: "Jane", lastname: "Doe" },
     ]
 
     let autoincrement = 3
 
     return {
         create: (name, lastname) => {
-            /*YOUR CODE HERE */
-
+            const id = autoincrement++;
+            const person = { id, name, lastname }
+            items.push(person);
+            return person;
         },
         read: (id) => {
-            /*YOUR CODE HERE */
-
+            return items.find(item => item.id === id) || null;
         },
         update: (id, name, lastname) => {
-            /*YOUR CODE HERE */
-
+            const index = items.findIndex(item => item.id === id);
+            if (index > -1) {
+                items[index] = { id, name, lastname };
+            }
+            return index > -1 ? items[index] : false;
         },
         delete: (id) => {
-            /*YOUR CODE HERE */
-
+            const index = items.findIndex(item => item.id === id);
+            if (index > -1) {
+                items = items.filter(item => item.id !== id)
+            }
+            return index > -1;
         }
     }
 
